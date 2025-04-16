@@ -20,7 +20,7 @@ input.simtime = 500;
 input.Polyic = interp1(POLYICtime, POLYICvalues, 0:input.simtime, 'pchip');
 
 % List of parameter names used in the model
-paramNames = {'k1', 'k2', 'k3', 'k4', 'k5', 'k6', 'k7', 'k8', 'k9', 'k10', 'k11', 'k12', 'k13', 'k14', 'k15', 'k16', 'k17', 'k18', 'k19', 'k20', 'k21', 'k22', 'k23', 'k24'};
+paramNames = {'k1', 'k2', 'k3', 'k4', 'k5', 'k6', 'k7', 'k8', 'k9', 'k10', 'k11', 'k12', 'k13', 'k14', 'k15', 'k16', 'k17', 'k18', 'k19', 'k20', 'k21', 'k22', 'k23', 'k24','k25','k26','k27','k28','k29'};
 
 % Set initial values for parameters (from the function 'set_parameters')
 pOriginal = set_parameters;
@@ -104,7 +104,12 @@ function p = set_parameters
     p.k21 = 0.00000022;                       
     p.k22 = 0.00000012;                       
     p.k23 = 0.0000000069;                     
-    p.k24 = 0.000000088;                      
+    p.k24 = 0.000000088;
+    p.k25 = 0.5;
+    p.k26 = 0.5;
+    p.k27 = 0.5;
+    p.k28 = 0.5;
+    p.k29 = 0.5;
 end
 
 % Function to simulate the model dynamics using ODE solver
@@ -127,16 +132,16 @@ function dydt = f(t, y, p, input)
     
     % System of ODEs representing the dynamics of the model (rate of change for each species)
     dydt = zeros(14, 1); % Initializes the derivative vector
-    dydt(1) = -p.k1 * y(1) * y(2) + p.k2 * y(3) - p.k20 * y(1);
-    dydt(2) = -p.k1 * y(1) * y(2) + p.k2 * y(3) - p.k21 * y(2);
+    dydt(1) = -p.k1 * y(1) * y(2) + p.k2 * y(3) - p.k20 * y(1) + p.k25;
+    dydt(2) = -p.k1 * y(1) * y(2) + p.k2 * y(3) - p.k21 * y(2) + p.k26;
     dydt(3) = p.k1 * y(1) * y(2) - p.k2 * y(3) - p.k3 * y(3) * POLYIC + p.k4 * y(4) + p.k12 * y(6) + p.k13 * y(9);
     dydt(4) = p.k3 * y(3) * POLYIC - p.k4 * y(4) - p.k6 * y(4) * y(5) + p.k7 * y(6);
-    dydt(5) = -p.k6 * y(4) * y(5) + p.k7 * y(6) + p.k12 * y(6) + p.k13 * y(9) - p.k23 * y(5);
+    dydt(5) = -p.k6 * y(4) * y(5) + p.k7 * y(6) + p.k12 * y(6) + p.k13 * y(9) - p.k23 * y(5) + p.k27;
     dydt(6) = p.k6 * y(4) * y(5) - p.k7 * y(6) - p.k8 * y(6) * y(7) - p.k9 * y(8) * y(6) + p.k10 * y(9) - p.k12 * y(6);
-    dydt(7) = -p.k5 * y(7) - p.k8 * y(7) * y(6) + p.k11 * y(8) - p.k22 * y(7);
+    dydt(7) = -p.k5 * y(7) - p.k8 * y(7) * y(6) + p.k11 * y(8) - p.k22 * y(7) + p.k28;
     dydt(8) = p.k5 * y(7) - p.k9 * y(8) * y(6) + p.k13 * y(9) + p.k10 * y(9) - p.k11 * y(8);
     dydt(9) = p.k8 * y(7) * y(6) + p.k9 * y(8) * y(6) - p.k10 * y(9) - p.k13 * y(9);
-    dydt(10) = -p.k14 * y(10) * y(9) - p.k24 * y(10);
+    dydt(10) = -p.k14 * y(10) * y(9) - p.k24 * y(10) + p.k29;
     dydt(11) = p.k14 * y(10) * y(9) - (p.k15 * y(11) * y(11)) * 2 + (p.k16 * y(12)) * 2;
     dydt(12) = p.k15 * y(11) * y(11) - p.k16 * y(12) - p.k19 * y(12);
     dydt(13) = -(p.k17 * y(13) * y(13)) * 2 + (p.k18 * y(14)) * 2;
