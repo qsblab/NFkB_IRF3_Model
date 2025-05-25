@@ -1,5 +1,5 @@
 # NFkB and IRF-3 Module 
-This script is MATLAB reconstruction for the mathematical model constructed in the manuscript "A Model for the Co-activation of Inflammatory Genes Mediated by NFkB and IRF-3 Following Viral Infections".
+This script is MATLAB reconstruction for the mathematical model constructed in the manuscript "A Model for the Co-activation of Inflammatory Genes Mediated by NFκB and IRF-3 Following Viral Infections".
 This repository consists of four MATLAB scripts and an output external file described as follows.
 1. Nuclear Factor Kappa B Signaling Pathway(NFkB_Module.m): This script  generates the  output of active nuclear concentration of NFkB in response to Poly I:C Input I and II as described in the Section: Model Development. It stores the results in external file "extracted_values.txt".
 2. Interferon Regulatory Factor 3 Signaling(IRF3_Module.m): This script  generates the output of active nuclear concentration of IRF-3 in response to Poly I:C Input I and II as described in the section: Model Development. It stores the results in external file "extracted_values.txt".
